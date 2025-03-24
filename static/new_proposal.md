@@ -4,6 +4,9 @@ Hi Prof. Mowry and Prof. Railing,
 
 Since our previous project idea are not interested enough during the discussion, here are two of our new ideas, and we would like to know if either looks good and we will have more details in our proposal.
 
+
+First Idea:
+
 Parallel wavelet transform:
 Implement parallel wavelet compression. Wavelet transforms are one of the most popular time-frequency-transformations and are widely used for data compression, especially image compression; notable applications include JPEG 2000 and DjVu. For good resolution on high-frequency terms, the wavelet compression shows a better compression performance for images that have transient signals.
 
@@ -13,6 +16,9 @@ Workload Imbalance: Deepr decompositions have less data size, leading to imbalan
 Dynamic Data Movement: Especially in lifting schemes or multi-dimensional transforms, values may move between processors, and memory access can be irregular.
 Synchronization Overhead: Multi-level transform has dependencies between levels. Barrier needed before moving to next level.
 Data Dependency: Convolutions involve neighboring elements. This creates spatial dependencies, especially with large filters
+
+---------
+Second Idea:
 
 
 Parallel PageRank Algorithm with streaming input:
