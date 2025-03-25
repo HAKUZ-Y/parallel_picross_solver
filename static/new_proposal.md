@@ -2,34 +2,43 @@
 
 Hi Prof. Mowry and Prof. Railing,
 
-Since our previous project idea are not interested enough during the discussion, here are two of our new ideas, and we would like to know if either looks good and we will have more details in our proposal.
+Our original project idea was creating a puzzle solver, which might not be a great fit, so we started exploring new ideas after the discussion this morning. Here is a very brief overview of the 2 new ideas we currently have in mind, and we'd really appreciate it if you could take a look over them and provide us some feedback before proceeding to the actual proposal.
+
+**First Idea - Parallel discrete wavelet transform**
+Wavelet transform is a algorithm used for signal and image processing by decomposing a signal into components at different frequency bands.
 
 
-First Idea:
 
-Parallel wavelet transform:
-Implement parallel wavelet compression. Wavelet transforms are one of the most popular time-frequency-transformations and are widely used for data compression, especially image compression; notable applications include JPEG 2000 and DjVu. For good resolution on high-frequency terms, the wavelet compression shows a better compression performance for images that have transient signals.
+**Challenges:**
+Workload Imbalance: 
+- Early levels contain more data and work than later levels, leading to imbalance between threads/processors as levels progress. Some processes might finish early, and we need to work on dynamic load balancing.
 
+Data dependency: 
+- There is a data dependency across level since each level depends on the results of the previous one, so synchronization will be needed before proceeding to the next level of computation.
 
-Challenges:
-Workload Imbalance: Deepr decompositions have less data size, leading to imbalance between threads/processors.
-Dynamic Data Movement: Especially in lifting schemes or multi-dimensional transforms, values may move between processors, and memory access can be irregular.
-Synchronization Overhead: Multi-level transform has dependencies between levels. Barrier needed before moving to next level.
-Data Dependency: Convolutions involve neighboring elements. This creates spatial dependencies, especially with large filters
+Dynamic Data Movement: 
+- We might also want to work on multi-dimensional transforms, where values may move between processors, and memory access can be irregular.
+
+To make it more challenging, we could work on a streaming version instead of processing a static image / signal. In this case data is processed in real-time as it arrives, and we have to figure out overlapping computation with data movement.
 
 ---------
-Second Idea:
+**Second Idea - Parallel PageRank Algorithm with streaming input:**
 
-
-Parallel PageRank Algorithm with streaming input:
 
 To mock real time application, we plan to parallelize the pagerank algorithm with streaming input, which means after each iteration, some nodes will be added and dropped.
 
-Challenges:
-Workload Imbalance: Skewed degree distributions lead to uneven computation
-Dynamic Data Movement: 	Cross-node rank updates require non-local access
-Synchronization Overhead: Iteration barriers limit speedup
-Data Dependency: PageRank at t+1 depends on in-links' values at t
+**Challenges:**
+Workload Imbalance: 
+- Skewed degree distributions lead to uneven computation
+
+Dynamic Data Movement: 	
+- Cross-node rank updates require non-local access
+
+Synchronization Overhead: 
+- Iteration barriers limit speedup
+
+Data Dependency: 
+- PageRank at t+1 depends on in-links' values at t
 
 The main computation task:
 ![alt text](image.png)
